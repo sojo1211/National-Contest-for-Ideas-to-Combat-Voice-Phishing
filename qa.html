@@ -353,7 +353,7 @@
             </button>
             <div class="qa-content">
                 <p>실제 개별 보이스피싱 지갑 전수 DB(Ground Truth)는 국가 수사/금융 기관의 비공개 데이터로 공개에 한계가 있습니다.</p>
-                <blockquote>따라서 미 재무부 해외자산통제국(OFAC)의 제재 대상(SDN) TRON 주소 등 <strong>공증된 최상위 자금세탁 고위험 주소를 'Positive Risk Proxy(Label = 1)'</strong>로 활용하여 고위험 세탁 지갑 특유의 온체인 시계열/구조적 행동 패턴을 머신러닝이 학습하도록 설계했습니다.</blockquote>
+                <blockquote>따라서 미 재무부 해외자산통제국(OFAC)의 제재 대상(SDN) TRON 주소를 <strong>고위험 거래행동의 Positive Proxy(대리 라벨)</strong>로 활용하여 고위험 세탁 지갑 특유의 온체인 시계열/구조적 행동 패턴을 머신러닝이 학습하도록 설계했습니다.</blockquote>
             </div>
         </div>
 
@@ -388,8 +388,8 @@
                 <span class="toggle-icon">▼</span>
             </button>
             <div class="qa-content">
-                <p>바이낸스, OKX 등 검증된 중앙화 거래소(CEX) 및 Tether 공식 발행사 주소는 엄격한 e-KYC/AML 검증을 거친 고유 유동성 지갑들입니다.</p>
-                <blockquote>이 지갑들은 고위험 세탁 지갑과 달리 뚜렷하고 정형화된 입출금 패턴을 보이므로, <strong>정상(Negative Class = 0) 거래행동의 기준점(Baseline Proxy)</strong>으로 정립하기에 가장 적합합니다.</blockquote>
+                <p>공개적으로 확인 가능한 거래소·발행사 주소를 Negative Proxy로 활용하여 Positive Proxy와 거래행동을 비교하기 위한 기준 집단으로 구성했습니다.</p>
+                <blockquote>다만 Negative Proxy 역시 모든 거래가 정상임을 보증하는 정답 데이터는 아니며, <strong>고위험 Proxy 패턴과 대비되는 거래행동 기준점(Baseline Proxy)</strong>으로 적용되었습니다.</blockquote>
             </div>
         </div>
 
