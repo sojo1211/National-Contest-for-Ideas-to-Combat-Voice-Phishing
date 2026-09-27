@@ -89,6 +89,41 @@
             font-size: 13px;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            margin-right: 12px;
+        }
+
+        .nav-btn {
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn-default {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid #cbd5e1;
+        }
+
+        .nav-btn-default:hover {
+            background: #e2e8f0;
+            color: var(--text-primary);
+        }
+
+        .nav-btn-active {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--brand-primary);
+        }
+
         .status-pill-live {
             background: #eff6ff;
             color: #1d4ed8;
@@ -804,7 +839,10 @@
             </div>
         </div>
         <div class="sys-status">
-            <span style="color: var(--text-muted);">온체인 배치 동기화 상태:</span>
+            <div class="nav-links">
+                <a href="index.html" class="nav-btn nav-btn-active">대시보드</a>
+                <a href="qa.html" class="nav-btn nav-btn-default">핵심 Q&A 15선</a>
+            </div>
             <div class="status-pill-live">
                 <span class="pulse-dot"></span>
                 <span>배치 동기화 연동 완료 (On-chain Ingestion OK)</span>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe-Trade AI — 기술 검증 및 시스템 설계 핵심 Q&A 15선</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --brand-primary: #1e3a8a;
+            --brand-sub: #2563eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            padding: 24px 36px;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-surface);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-primary);
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn-default {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid #cbd5e1;
+        }
+
+        .nav-btn-default:hover {
+            background: #e2e8f0;
+            color: var(--text-primary);
+        }
+
+        .nav-btn-active {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 1px solid var(--brand-primary);
+        }
+
+        /* Banner */
+        .qa-banner {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 24px 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+        }
+
+        .qa-banner h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .qa-banner p {
+            font-size: 13.5px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Search & Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 7px 14px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+
+        /* Q&A Accordion List */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .qa-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+
+        .qa-card:hover {
+            border-color: #cbd5e1;
+        }
+
+        .qa-btn {
+            width: 100%;
+            padding: 16px 22px;
+            background: #f8fafc;
+            border: none;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .qa-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .q-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #334155;
+            margin-right: 10px;
+        }
+
+        .q-number {
+            color: var(--brand-sub);
+            font-weight: 800;
+            margin-right: 8px;
+        }
+
+        .toggle-icon {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .qa-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .qa-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 22px;
+            font-size: 13.5px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+
+        .qa-card.active .qa-content {
+            max-height: 1000px;
+            padding: 18px 22px 22px 22px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .qa-content blockquote {
+            background: #f8fafc;
+            border-left: 4px solid var(--brand-sub);
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #334155;
+            margin-top: 10px;
+        }
+
+        .highlight-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 10px;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        .legal-notice {
+            padding: 14px 18px;
+            background: #ffffff;
+            border-left: 4px solid #64748b;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="top-nav">
+        <div class="brand-section">
+            <div class="logo-icon">ST</div>
+            <div class="brand-text">
+                <h1>Safe-Trade AI — 기술 검증 및 시스템 설계 Q&A 15선</h1>
+                <p>TRON USDT 온체인 거래행동 기반 Layering 관련 AML 위험도 평가 연구</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn nav-btn-default">📊 대시보드로 돌아가기</a>
+            <a href="qa.html" class="nav-btn nav-btn-active">💡 핵심 Q&A 15선</a>
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="qa-banner">
+        <h2>💡 시스템 설계, Proxy 정의, ML 검증 및 리스크 산출 핵심 Q&A</h2>
+        <p>본 페이지는 Safe-Trade AI 시스템의 문제 정의, OFAC SDN Proxy 정의, 3-Fold Stratified Cross-Validation F1-Score(0.8989)의 구체적 해석, 리스크 스코어링 공식 및 시스템의 명확한 탐지 범주를 가이드합니다.</p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterQa('all')">전체 보기 (15)</button>
+        <button class="filter-btn" onclick="filterQa('def')">문제 정의 (Q1~Q2)</button>
+        <button class="filter-btn" onclick="filterQa('proxy')">Proxy 라벨 (Q3~Q7)</button>
+        <button class="filter-btn" onclick="filterQa('ml')">ML 및 데이터 검증 (Q8~Q11)</button>
+        <button class="filter-btn" onclick="filterQa('score')">Feature & Scoring (Q12~Q14)</button>
+        <button class="filter-btn" onclick="filterQa('scope')">시스템 한계 (Q15)</button>
+    </div>
+
+    <!-- Q&A List -->
+    <div class="qa-container">
+
+        <!-- Q1 -->
+        <div class="qa-card active" data-cat="def">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q1.</span><span class="q-tag">문제 정의</span>왜 보이스피싱과 자금세탁을 연결했나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>최근 보이스피싱 범죄 수법은 단순 원화(KRW) 계좌 이체를 넘어, <strong>[계좌 인출 → 명동 등 무허가 환전소/가상자산 구매 → 해외 지갑 송금]</strong>으로 이어지는 <strong>Cross-Layer 자금 이동</strong> 구조를 가집니다.</p>
+                <blockquote>경찰청 통계(2026년 상반기)에 따르면 가상자산 연계 불법행위 1,529건 중 자금세탁이 1,214건(79.4%)을 차지하며 전년 대비 약 152배 급증했습니다. 전통적인 은행 계좌(Off-chain) 모니터링만으로는 가상자산으로 전환된 범죄 피해금의 은닉 경로를 추적할 수 없으므로, 보이스피싱 탐지와 가상자산 자금세탁(AML)의 연계 분석이 필수적입니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="qa-card" data-cat="def">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q2.</span><span class="q-tag">문제 정의</span>왜 보이스피싱 자체가 아니라 Layering을 탐지하나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>피해 발생 직후 피해자가 수사기관에 신고하기 전까지는 온체인 지갑에 "보이스피싱 범죄 지갑"이라는 사전 라벨(Label)이 존재하지 않습니다.</p>
+                <blockquote>그러나 불법 자금을 은닉하고 수사기관의 추적을 회피하기 위해 자금을 여러 지갑으로 분산·재전송하는 <strong>Layering(은닉/분산) 단계의 거래행동 패턴(Fan-in, Fan-out, Smurfing, Rapid Pass-through)</strong>은 공통적으로 발현됩니다. 따라서 라벨 등록을 기다리지 않고 온체인 이상 거래행동 자체를 탐지함으로써 <strong>신고 이전 단계에서 선제 포착</strong>이 가능합니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="qa-card" data-cat="proxy">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q3.</span><span class="q-tag">Proxy 라벨</span>왜 TRON USDT인가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>Chainalysis(2026) 보고서에 따르면 불법 가상자산 거래량의 <strong>84%가 스테이블코인</strong>으로 발생했습니다.</p>
+                <blockquote>특히 <strong>TRON Network(TRC-20 USDT)</strong>는 타 메인넷(Ethereum 등)에 비해 가스비(수수료)가 매우 저렴하고 이체 속도(TPS)가 압도적으로 빠르기 때문에, 실제 검거 사례(명동 3,000억 불법세탁 등)에서 세탁 조직이 가장 집중적으로 악용하는 메인넷입니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="qa-card" data-cat="proxy">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q4.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN을 왜 Positive Proxy로 사용했나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>실제 개별 보이스피싱 지갑 전수 DB(Ground Truth)는 국가 수사/금융 기관의 비공개 데이터로 공개에 한계가 있습니다.</p>
+                <blockquote>따라서 미 재무부 해외자산통제국(OFAC)의 제재 대상(SDN) TRON 주소 등 <strong>공증된 최상위 자금세탁 고위험 주소를 'Positive Proxy(대리 라벨)'</strong>로 활용하여 고위험 세탁 지갑 특유의 온체인 시계열/구조적 행동 패턴을 머신러닝이 학습하도록 설계했습니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="qa-card" data-cat="proxy">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q5.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN이 보이스피싱 정답 Label인가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p><strong>아닙니다.</strong> OFAC SDN은 보이스피싱 단일 범죄에 국한된 Ground Truth가 아니라 글로벌 자금세탁·테러자금조달 등 최상위 위험 지갑 모음입니다.</p>
+                <blockquote>본 프로젝트에서는 이를 보이스피싱 확정 정답지로 주장하는 것이 아니라, <strong>'고위험 자금세탁 거래행동의 벤치마크(Positive Proxy)'</strong>로 정의하여 사용합니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="qa-card" data-cat="proxy">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q6.</span><span class="q-tag">Proxy 라벨</span>그렇다면 F1 0.8989는 무엇을 의미하나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>F1-Score 0.8989는 "특정 지갑이 보이스피싱 지갑인지 여부"를 89.89% 맞췄다는 뜻이 아닙니다.</p>
+                <blockquote>모델이 <strong>"OFAC SDN 등 고위험 자금세탁 Proxy 지갑 특유의 온체인 구조적/시간적 거래행동 패턴(Fan-in, Pass-through 등)과 일반 거래소/지갑의 행동 패턴을 89.89%의 F1-Score로 정확히 구분해낸다"</strong>는 거래행동 분류 성능을 의미합니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="qa-card" data-cat="proxy">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q7.</span><span class="q-tag">Proxy 라벨</span>왜 거래소·Tether 주소를 Negative Proxy로 사용했나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>바이낸스, OKX 등 검증된 중앙화 거래소(CEX) 및 Tether 공식 발행사 주소는 엄격한 e-KYC/AML 검증을 거친 고유 유동성 지갑들입니다.</p>
+                <blockquote>이 지갑들은 고위험 세탁 지갑과 달리 뚜렷하고 정형화된 입출금 패턴을 보이므로, <strong>정상(Negative Class = 0) 거래행동의 기준점(Baseline Proxy)</strong>으로 정립하기에 가장 적합합니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="qa-card" data-cat="ml">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q8.</span><span class="q-tag">ML 및 데이터 검증</span>신규 지갑은 Label이 없는데 어떻게 탐지하나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>본 시스템은 지갑의 블랙리스트 등록 여부(Label)를 단순 조회하는 방식이 아닙니다.</p>
+                <blockquote>지갑의 거래 내역에서 산출한 <strong>입출금 그래프 구조(Fan-in/out, Smurfing)와 시간 체류 특성(Holding Time, Pass-through Ratio) 변수(Feature Vector)</strong>를 모델에 입력하여, 고위험 세탁 패턴과의 유사도(Positive Probability)를 계산함으로써 라벨이 없는 신규 지갑도 선제 탐지합니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="qa-card" data-cat="ml">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q9.</span><span class="q-tag">ML 및 데이터 검증</span>왜 Random Forest인가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>1. <strong>오버피팅 방지 및 일반화</strong>: 앙상블 의사결정 나무 구조로 온체인 수치형 변수에 대한 일반화 능력 우수.<br>
+                2. <strong>설명 가능성(XAI)</strong>: 단순 점수 외 `Feature Importance` 기반 위험 원인 근거(예: Pass-through 비율 과다 등) 제공.<br>
+                3. <strong>최적 검증 성능</strong>: 3-Fold Stratified Cross-Validation에서 가장 높은 F1-Score(0.8989) 및 PR-AUC(0.9145) 달성.</p>
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="qa-card" data-cat="ml">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q10.</span><span class="q-tag">ML 및 데이터 검증</span>F1 0.8989는 Test 데이터 성능인가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>단순 1회성 Train/Test Split이 아니라 <strong>3-Fold Stratified Cross-Validation(층화 교차 검증)</strong>을 수행하여 각 Validation Fold에서 측정된 F1-Score들의 평균값입니다.</p>
+                <blockquote>특정 데이터 분할 편향을 차단하고 실제 미라벨 데이터에 대한 대략적인 추론 능력을 보수적으로 검증한 지표입니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="qa-card" data-cat="ml">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q11.</span><span class="q-tag">ML 및 데이터 검증</span>데이터 누수를 어떻게 막았나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>1. <strong>Target-Free Feature Engineering</strong>: Feature 산출 시 지갑의 미래 거래 정보나 Label을 전혀 사용하지 않고 오직 해당 지갑의 온체인 입출금 이력만 집계했습니다.<br>
+                2. <strong>Strict Fold Split</strong>: Cross-Validation 시 학습 폴드(Train Fold)로만 모델을 훈련하고 검증 폴드에는 독립 적용하여 정보 누수를 완벽 차단했습니다.</p>
+            </div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="qa-card" data-cat="score">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q12.</span><span class="q-tag">Feature & Scoring</span>Fan-in/Fan-out/Smurfing 등이 왜 AML 위험행동인가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>• <strong>Fan-in (집금)</strong>: 불특정 다수 피해자/수거책 지갑에서 자금이 한 곳으로 수집되는 단계.<br>
+                • <strong>Fan-out (분산)</strong>: 추적을 피하기 위해 자금을 다수 지갑으로 재분산하는 단계.<br>
+                • <strong>Smurfing (소액 분할)</strong>: 임계값 탐지를 회피하기 위해 소액으로 나누어 이체.<br>
+                • <strong>Rapid Pass-through</strong>: 입금 직후 수분 내 전액 출금하여 동결 전 탈출하는 Layering 수법.</p>
+            </div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="qa-card" data-cat="score">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q13.</span><span class="q-tag">Feature & Scoring</span>Risk Score 0~100은 어떻게 계산하나?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>Random Forest 모델이 예측한 Positive Class Probability(고위험 세탁 Proxy 유사도 확률, 0.0~1.0)에 100을 곱해 <strong>0~100점</strong>으로 변환합니다.</p>
+                <blockquote><strong>Risk Score = Predict_Proba(Positive) × 100</strong><br>Score 70점 이상 지갑은 `[추가 분석 우선 대상]`으로 자동 지정됩니다.</blockquote>
+            </div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="qa-card" data-cat="score">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q14.</span><span class="q-tag">Feature & Scoring</span>Risk Score가 높으면 실제로 누가 어떤 조치를 하는가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <p>• <strong>경찰청/검찰 수사관</strong>: 온체인 이체 경로 추적 및 계좌/지갑 동결 조치 수사력 집중.<br>
+                • <strong>FIU (금융정보분석원)</strong>: STR(이상금융거래보고) 심사 및 거래소 모니터링 연계.<br>
+                • <strong>가상자산 거래소(Compliance)</strong>: 입출금 일시 제한 및 e-KYC 2차 재심사 실행.</p>
+            </div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="qa-card active" data-cat="scope">
+            <button class="qa-btn" onclick="toggleQa(this)">
+                <span><span class="q-number">Q15.</span><span class="q-tag">시스템 한계</span>결국 이 시스템이 실제 보이스피싱을 탐지한다고 말할 수 있는가?</span>
+                <span class="toggle-icon">▼</span>
+            </button>
+            <div class="qa-content">
+                <div class="highlight-box">
+                    ※ 시스템 핵심 범주 및 답변:<br>
+                    “직접적으로 보이스피싱을 확정 탐지한다고 말하는 것이 아니라, 보이스피싱 피해금이 가상자산으로 전환된 이후 나타날 수 있는 Layering 관련 위험거래 행동을 탐지하는 PoC”가 정확합니다.
+                </div>
+                <p style="margin-top: 10px;">(즉, 사후 형사적 범죄 판정이 아니라, 온체인 자금 흐름상 자금세탁 이상 징후를 선제 포착하고 현장 수사관 및 심사자에게 정밀 조사 우선순위를 제공하는 고도화된 AML 모니터링 체계입니다.)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Legal Notice -->
+    <div class="legal-notice">
+        ※ <strong>Legal Disclaimer & System Notice:</strong> 본 웹 페이지에 제시된 모든 지표는 TRON Mainnet 실제 데이터 및 머신러닝 교차검증을 기반으로 산출되었으며, 형사적 범죄 여부 확정이 아닌 수사 및 컴플라이언스 담당자의 업무 우선순위를 지정하기 위한 정량 지표입니다.
+    </div>
+
+    <script>
+        function toggleQa(btn) {
+            const card = btn.parentElement;
+            card.classList.toggle('active');
+        }
+
+        function filterQa(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.qa-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
