@@ -910,6 +910,189 @@
         </div>
     </div>
 
+    <!-- FAQ Accordion Section: 15 Key Q&A -->
+    <div class="faq-section" id="faqAccordion">
+        <div class="faq-header">
+            <h2>💡 시스템 설계 및 기술 검증 핵심 Q&A 15선 (시스템 한계 및 Proxy 정의)</h2>
+            <span class="faq-badge">Safe-Trade AI Core Q&A</span>
+        </div>
+        <div class="faq-grid">
+            
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q1.</span><span class="q-tag">문제 정의</span>왜 보이스피싱과 자금세탁을 연결했나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>최근 보이스피싱 수법은 단순 계좌 이체를 넘어 <strong>[계좌 인출 → 무허가 환전소/가상자산 구매 → 해외 지갑 송금]</strong>으로 이어지는 <strong>Cross-Layer 자금 이동</strong> 구조를 가집니다.</p>
+                    <blockquote>경찰청 통계(2026년 상반기)에 따르면 가상자산 연계 불법행위 1,529건 중 자금세탁이 1,214건(79.4%)을 차지하며 전년 대비 152배 급증했습니다. 전통적인 원화(KRW) 계좌 모니터링만으로는 가상자산으로 전환된 불법 자금의 은닉 경로를 추적할 수 없으므로 연계 분석이 필수적입니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q2.</span><span class="q-tag">문제 정의</span>왜 보이스피싱 자체가 아니라 Layering을 탐지하나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>피해 발생 직후 신고 전까지는 온체인 지갑에 "보이스피싱 범죄 지갑"이라는 사전 라벨(Label)이 존재하지 않습니다.</p>
+                    <blockquote>그러나 추적 회피를 위해 자금을 다수 지갑으로 분산·재전송하는 <strong>Layering(은닉/분산) 단계의 거래행동 패턴(Fan-in, Fan-out, Smurfing, Rapid Pass-through)</strong>은 공통적으로 발현됩니다. 라벨 등록을 기다리지 않고 온체인 이상 거래행동 자체를 탐지함으로써 <strong>신고 이전 단계에서 선제 포착</strong>이 가능합니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q3.</span><span class="q-tag">데이터셋</span>왜 TRON USDT인가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Chainalysis(2026) 보고서에 따르면 불법 가상자산 거래량의 <strong>84%가 스테이블코인</strong>으로 발생했습니다.</p>
+                    <blockquote>특히 <strong>TRON Network(TRC-20 USDT)</strong>는 극도로 저렴한 수수료(Gas Fee)와 빠른 이체 속도(TPS) 덕분에 실제 검거 사례(명동 3,000억 불법세탁 등)에서 세탁 조직이 가장 압도적으로 악용하는 메인넷입니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q4.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN을 왜 Positive Proxy로 사용했나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>실제 보이스피싱 지갑 전수 DB(Ground Truth)는 국가 수사/금융 기관의 비공개 데이터로 수집에 한계가 있습니다.</p>
+                    <blockquote>따라서 미 재무부 해외자산통제국(OFAC)의 제재 대상(SDN) TRON 주소 등 <strong>공증된 최상위 자금세탁 고위험 주소를 'Positive Proxy(대리 라벨)'</strong>로 활용하여 고위험 세탁 지갑 특유의 온체인 시계열/구조적 행동 패턴을 머신러닝이 학습하도록 설계했습니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q5.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN이 보이스피싱 정답 Label인가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p><strong>아닙니다.</strong> OFAC SDN은 보이스피싱 단일 범죄에 국한된 Ground Truth가 아니라 글로벌 자금세탁·테러자금조달 등 최상위 위험 지갑 모음입니다.</p>
+                    <blockquote>본 시스템에서는 이를 보이스피싱 정답지로 주장하는 것이 아니라, <strong>'고위험 자금세탁 거래행동의 벤치마크(Positive Proxy)'</strong>로 정의하여 연구 및 실증을 진행했습니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q6.</span><span class="q-tag">ML 검증</span>그렇다면 F1 0.8989는 무엇을 의미하나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>F1-Score 0.8989는 "특정 지갑이 보이스피싱 지갑인지 여부"를 89.89% 맞췄다는 의미가 아닙니다.</p>
+                    <blockquote>모델이 <strong>"OFAC SDN 등 고위험 자금세탁 Proxy 지갑 특유의 온체인 구조적/시간적 거래행동 패턴(Fan-in, Pass-through 등)과 일반 거래소/지갑의 행동 패턴을 89.89%의 F1-Score로 정확히 구분해낸다"</strong>는 거래행동 분류 성능을 의미합니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q7.</span><span class="q-tag">Proxy 라벨</span>왜 거래소·Tether 주소를 Negative Proxy로 사용했나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>바이낸스, OKX 등 검증된 중앙화 거래소(CEX) 및 Tether 공식 발행사 주소는 엄격한 e-KYC/AML 검증을 거친 고유 유동성 지갑들입니다.</p>
+                    <blockquote>이들은 고위험 세탁 지갑과 달리 뚜렷하고 정형화된 입출금 패턴을 보이므로, <strong>정상(Negative Class = 0) 거래행동의 기준점(Baseline Proxy)</strong>으로 정립하기에 가장 이상적입니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q8.</span><span class="q-tag">ML 예측</span>신규 지갑은 Label이 없는데 어떻게 탐지하나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>본 AI 시스템은 지갑의 블랙리스트 등록 여부(Label)를 단순 조회하지 않습니다.</p>
+                    <blockquote>지갑의 거래 내역에서 산출한 <strong>입출금 그래프 구조(Fan-in/out, Smurfing)와 시간 체류 특성(Holding Time, Pass-through Ratio) 변수(Feature Vector)</strong>를 모델에 입력하여, 고위험 세탁 패턴과의 유사도(Positive Probability)를 계산함으로써 라벨이 없는 신규 지갑도 탐지합니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q9.</span><span class="q-tag">모델 선정</span>왜 Random Forest인가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>1. <strong>오버피팅 방지 및 일반화</strong>: 앙상블 트리 구조로 수치형 변수의 과적합을 방지하고 일반화 우수.<br>
+                    2. <strong>설명 가능성(XAI)</strong>: 단순 점수 외 `Feature Importance` 기반 위험 원인 근거 제공.<br>
+                    3. <strong>최적 성능</strong>: Stratified Cross-Validation 비교에서 가장 높은 F1-Score(0.8989) 및 PR-AUC(0.9145) 달성.</p>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q10.</span><span class="q-tag">ML 검증</span>F1 0.8989는 Test 데이터 성능인가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>단순 1회성 Train/Test Split이 아닌 <strong>3-Fold Stratified Cross-Validation(층화 교차 검증)</strong>을 수행하여 각 Validation Fold에서 측정된 F1-Score의 평균값입니다.</p>
+                    <blockquote>특정 데이터 분할 편향을 차단하고 실제 미라벨 데이터에 대한 일반화 추론 능력을 반영한 수치입니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q11.</span><span class="q-tag">데이터 검증</span>데이터 누수를 어떻게 막았나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>1. <strong>Target-Free Feature Engineering</strong>: Feature 산출 시 지갑의 미래 거래 정보나 Label을 사용하지 않고 오직 해당 지갑의 온체인 입출금 이력만 집계했습니다.<br>
+                    2. <strong>Strict Fold Split</strong>: Cross-Validation 시 학습 폴드(Train Fold)로만 모델을 훈련하고 검증 폴드에는 독립 적용하여 전이 유출을 차단했습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q12.</span><span class="q-tag">Feature</span>Fan-in/Fan-out/Smurfing 등이 왜 AML 위험행동인가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>• <strong>Fan-in (집금)</strong>: 불특정 다수 피해자/수거책 지갑에서 자금이 한 곳으로 수집되는 단계.<br>
+                    • <strong>Fan-out (분산)</strong>: 추적을 피하기 위해 자금을 다수 지갑으로 재분산하는 단계.<br>
+                    • <strong>Smurfing (소액 분할)</strong>: 임계값 탐지를 회피하기 위해 소액으로 나누어 이체.<br>
+                    • <strong>Rapid Pass-through</strong>: 입금 직후 수분 내 전액 출금하여 동결 전 탈출하는 Layering 수법.</p>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q13.</span><span class="q-tag">Scoring</span>Risk Score 0~100은 어떻게 계산하나?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Random Forest 모델이 예측한 Positive Class Probability(고위험 세탁 Proxy 유사도 확률, 0.0~1.0)에 100을 곱해 <strong>0~100점</strong>으로 산출합니다.</p>
+                    <blockquote><strong>Risk Score = Predict_Proba(Positive) × 100</strong><br>Score 70점 이상 지갑은 `[추가 분석 우선 대상]`으로 자동 지정됩니다.</blockquote>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q14.</span><span class="q-tag">실무 조치</span>Risk Score가 높으면 실제로 누가 어떤 조치를 하는가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>• <strong>경찰청/검찰 수사관</strong>: 온체인 이체 경로 추적 및 계좌/지갑 동결 조치 수사력 집중.<br>
+                    • <strong>FIU (금융정보분석원)</strong>: STR(이상금융거래보고) 심사 및 거래소 모니터링 연계.<br>
+                    • <strong>가상자산 거래소(Compliance)</strong>: 입출금 일시 제한 및 e-KYC 2차 재심사 실행.</p>
+                </div>
+            </div>
+
+            <div class="faq-item active">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span><span class="q-num">Q15.</span><span class="q-tag">시스템 한계</span>결국 이 시스템이 실제 보이스피싱을 탐지한다고 말할 수 있는가?</span>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="highlight-callout">
+                        ※ 시스템 핵심 범주 및 답변:<br>
+                        “직접적으로 보이스피싱을 확정 탐지한다고 말하는 것이 아니라, 보이스피싱 피해금이 가상자산으로 전환된 이후 나타날 수 있는 Layering 관련 위험거래 행동을 탐지하는 PoC”가 정확합니다.
+                    </div>
+                    <p style="margin-top: 8px;">(즉, 사후 형사적 범죄 판정이 아니라, 온체인 자금 흐름상 자금세탁 이상 징후를 선제 포착하고 현장 수사관 및 심사자에게 정밀 조사 우선순위를 제공하는 고도화된 AML 모니터링 체계입니다.)</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- 1. Full-Width Time-Series Trend Line Chart -->
     <div class="chart-card">
         <div class="card-header">
@@ -1202,189 +1385,6 @@
                     <li><strong>그래프 학습 필요성:</strong> 향후 대용량 상용화 시 GNN(Graph Neural Network) 도입</li>
                     <li><strong>면책 사항:</strong> 확정 범죄 판정이 아닌 추가 분석 우선순위 제공 지표임</li>
                 </ul>
-            </div>
-        </div>
-
-        <!-- FAQ Accordion Section: 15 Key Q&A -->
-        <div class="faq-section" id="faqAccordion">
-            <div class="faq-header">
-                <h2>💡 시스템 설계 및 기술 검증 핵심 Q&A 15선 (시스템 한계 및 Proxy 정의)</h2>
-                <span class="faq-badge">Safe-Trade AI Core Q&A</span>
-            </div>
-            <div class="faq-grid">
-                
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q1.</span><span class="q-tag">문제 정의</span>왜 보이스피싱과 자금세탁을 연결했나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>최근 보이스피싱 수법은 단순 계좌 이체를 넘어 <strong>[계좌 인출 → 무허가 환전소/가상자산 구매 → 해외 지갑 송금]</strong>으로 이어지는 <strong>Cross-Layer 자금 이동</strong> 구조를 가집니다.</p>
-                        <blockquote>경찰청 통계(2026년 상반기)에 따르면 가상자산 연계 불법행위 1,529건 중 자금세탁이 1,214건(79.4%)을 차지하며 전년 대비 152배 급증했습니다. 전통적인 원화(KRW) 계좌 모니터링만으로는 가상자산으로 전환된 불법 자금의 은닉 경로를 추적할 수 없으므로 연계 분석이 필수적입니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q2.</span><span class="q-tag">문제 정의</span>왜 보이스피싱 자체가 아니라 Layering을 탐지하나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>피해 발생 직후 신고 전까지는 온체인 지갑에 "보이스피싱 범죄 지갑"이라는 사전 라벨(Label)이 존재하지 않습니다.</p>
-                        <blockquote>그러나 추적 회피를 위해 자금을 다수 지갑으로 분산·재전송하는 <strong>Layering(은닉/분산) 단계의 거래행동 패턴(Fan-in, Fan-out, Smurfing, Rapid Pass-through)</strong>은 공통적으로 발현됩니다. 라벨 등록을 기다리지 않고 온체인 이상 거래행동 자체를 탐지함으로써 <strong>신고 이전 단계에서 선제 포착</strong>이 가능합니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q3.</span><span class="q-tag">데이터셋</span>왜 TRON USDT인가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Chainalysis(2026) 보고서에 따르면 불법 가상자산 거래량의 <strong>84%가 스테이블코인</strong>으로 발생했습니다.</p>
-                        <blockquote>특히 <strong>TRON Network(TRC-20 USDT)</strong>는 극도로 저렴한 수수료(Gas Fee)와 빠른 이체 속도(TPS) 덕분에 실제 검거 사례(명동 3,000억 불법세탁 등)에서 세탁 조직이 가장 압도적으로 악용하는 메인넷입니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q4.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN을 왜 Positive Proxy로 사용했나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>실제 보이스피싱 지갑 전수 DB(Ground Truth)는 국가 수사/금융 기관의 비공개 데이터로 수집에 한계가 있습니다.</p>
-                        <blockquote>따라서 미 재무부 해외자산통제국(OFAC)의 제재 대상(SDN) TRON 주소 등 <strong>공증된 최상위 자금세탁 고위험 주소를 'Positive Proxy(대리 라벨)'</strong>로 활용하여 고위험 세탁 지갑 특유의 온체인 시계열/구조적 행동 패턴을 머신러닝이 학습하도록 설계했습니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q5.</span><span class="q-tag">Proxy 라벨</span>OFAC SDN이 보이스피싱 정답 Label인가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p><strong>아닙니다.</strong> OFAC SDN은 보이스피싱 단일 범죄에 국한된 Ground Truth가 아니라 글로벌 자금세탁·테러자금조달 등 최상위 위험 지갑 모음입니다.</p>
-                        <blockquote>본 시스템에서는 이를 보이스피싱 정답지로 주장하는 것이 아니라, <strong>'고위험 자금세탁 거래행동의 벤치마크(Positive Proxy)'</strong>로 정의하여 연구 및 실증을 진행했습니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q6.</span><span class="q-tag">ML 검증</span>그렇다면 F1 0.8989는 무엇을 의미하나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>F1-Score 0.8989는 "특정 지갑이 보이스피싱 지갑인지 여부"를 89.89% 맞췄다는 의미가 아닙니다.</p>
-                        <blockquote>모델이 <strong>"OFAC SDN 등 고위험 자금세탁 Proxy 지갑 특유의 온체인 구조적/시간적 거래행동 패턴(Fan-in, Pass-through 등)과 일반 거래소/지갑의 행동 패턴을 89.89%의 F1-Score로 정확히 구분해낸다"</strong>는 거래행동 분류 성능을 의미합니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q7.</span><span class="q-tag">Proxy 라벨</span>왜 거래소·Tether 주소를 Negative Proxy로 사용했나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>바이낸스, OKX 등 검증된 중앙화 거래소(CEX) 및 Tether 공식 발행사 주소는 엄격한 e-KYC/AML 검증을 거친 고유 유동성 지갑들입니다.</p>
-                        <blockquote>이들은 고위험 세탁 지갑과 달리 뚜렷하고 정형화된 입출금 패턴을 보이므로, <strong>정상(Negative Class = 0) 거래행동의 기준점(Baseline Proxy)</strong>으로 정립하기에 가장 이상적입니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q8.</span><span class="q-tag">ML 예측</span>신규 지갑은 Label이 없는데 어떻게 탐지하나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>본 AI 시스템은 지갑의 블랙리스트 등록 여부(Label)를 단순 조회하지 않습니다.</p>
-                        <blockquote>지갑의 거래 내역에서 산출한 <strong>입출금 그래프 구조(Fan-in/out, Smurfing)와 시간 체류 특성(Holding Time, Pass-through Ratio) 변수(Feature Vector)</strong>를 모델에 입력하여, 고위험 세탁 패턴과의 유사도(Positive Probability)를 계산함으로써 라벨이 없는 신규 지갑도 탐지합니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q9.</span><span class="q-tag">모델 선정</span>왜 Random Forest인가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>1. <strong>오버피팅 방지 및 일반화</strong>: 앙상블 트리 구조로 수치형 변수의 과적합을 방지하고 일반화 우수.<br>
-                        2. <strong>설명 가능성(XAI)</strong>: 단순 점수 외 `Feature Importance` 기반 위험 원인 근거 제공.<br>
-                        3. <strong>최적 성능</strong>: Stratified Cross-Validation 비교에서 가장 높은 F1-Score(0.8989) 및 PR-AUC(0.9145) 달성.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q10.</span><span class="q-tag">ML 검증</span>F1 0.8989는 Test 데이터 성능인가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>단순 1회성 Train/Test Split이 아닌 <strong>3-Fold Stratified Cross-Validation(층화 교차 검증)</strong>을 수행하여 각 Validation Fold에서 측정된 F1-Score의 평균값입니다.</p>
-                        <blockquote>특정 데이터 분할 편향을 차단하고 실제 미라벨 데이터에 대한 일반화 추론 능력을 반영한 수치입니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q11.</span><span class="q-tag">데이터 검증</span>데이터 누수를 어떻게 막았나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>1. <strong>Target-Free Feature Engineering</strong>: Feature 산출 시 지갑의 미래 거래 정보나 Label을 사용하지 않고 오직 해당 지갑의 온체인 입출금 이력만 집계했습니다.<br>
-                        2. <strong>Strict Fold Split</strong>: Cross-Validation 시 학습 폴드(Train Fold)로만 모델을 훈련하고 검증 폴드에는 독립 적용하여 전이 유출을 차단했습니다.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q12.</span><span class="q-tag">Feature</span>Fan-in/Fan-out/Smurfing 등이 왜 AML 위험행동인가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>• <strong>Fan-in (집금)</strong>: 불특정 다수 피해자/수거책 지갑에서 자금이 한 곳으로 수집되는 단계.<br>
-                        • <strong>Fan-out (분산)</strong>: 추적을 피하기 위해 자금을 다수 지갑으로 재분산하는 단계.<br>
-                        • <strong>Smurfing (소액 분할)</strong>: 임계값 탐지를 회피하기 위해 소액으로 나누어 이체.<br>
-                        • <strong>Rapid Pass-through</strong>: 입금 직후 수분 내 전액 출금하여 동결 전 탈출하는 Layering 수법.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q13.</span><span class="q-tag">Scoring</span>Risk Score 0~100은 어떻게 계산하나?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Random Forest 모델이 예측한 Positive Class Probability(고위험 세탁 Proxy 유사도 확률, 0.0~1.0)에 100을 곱해 <strong>0~100점</strong>으로 산출합니다.</p>
-                        <blockquote><strong>Risk Score = Predict_Proba(Positive) × 100</strong><br>Score 70점 이상 지갑은 `[추가 분석 우선 대상]`으로 자동 지정됩니다.</blockquote>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q14.</span><span class="q-tag">실무 조치</span>Risk Score가 높으면 실제로 누가 어떤 조치를 하는가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>• <strong>경찰청/검찰 수사관</strong>: 온체인 이체 경로 추적 및 계좌/지갑 동결 조치 수사력 집중.<br>
-                        • <strong>FIU (금융정보분석원)</strong>: STR(이상금융거래보고) 심사 및 거래소 모니터링 연계.<br>
-                        • <strong>가상자산 거래소(Compliance)</strong>: 입출금 일시 제한 및 e-KYC 2차 재심사 실행.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item active">
-                    <button class="faq-question" onclick="toggleFaq(this)">
-                        <span><span class="q-num">Q15.</span><span class="q-tag">시스템 한계</span>결국 이 시스템이 실제 보이스피싱을 탐지한다고 말할 수 있는가?</span>
-                        <span class="toggle-icon">▼</span>
-                    </button>
-                    <div class="faq-answer">
-                        <div class="highlight-callout">
-                            ※ 시스템 핵심 범주 및 답변:<br>
-                            “직접적으로 보이스피싱을 확정 탐지한다고 말하는 것이 아니라, 보이스피싱 피해금이 가상자산으로 전환된 이후 나타날 수 있는 Layering 관련 위험거래 행동을 탐지하는 PoC”가 정확합니다.
-                        </div>
-                        <p style="margin-top: 8px;">(즉, 사후 형사적 범죄 판정이 아니라, 온체인 자금 흐름상 자금세탁 이상 징후를 선제 포착하고 현장 수사관 및 심사자에게 정밀 조사 우선순위를 제공하는 고도화된 AML 모니터링 체계입니다.)</p>
-                    </div>
-                </div>
-
             </div>
         </div>
 
