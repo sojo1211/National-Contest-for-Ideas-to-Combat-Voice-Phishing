@@ -1,0 +1,4 @@
+Model,Precision,Recall,F1-Score,PR-AUC
+Random Forest,0.8889,0.9091,0.8989,0.9145
+Gradient Boosting,0.8333,0.8333,0.8333,0.852
+Logistic Regression,0.7778,0.8,0.7889,0.795

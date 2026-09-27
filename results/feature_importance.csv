@@ -1,0 +1,12 @@
+Feature,Importance,Relative_Weight_%
+fan_in,0.2598,25.98
+amount_mean,0.1879,18.79
+amount_median,0.1834,18.34
+amount_std,0.1468,14.68
+small_tx_ratio,0.1187,11.87
+amount_cv,0.1035,10.35
+fan_out,0.0,0.0
+transaction_count,0.0,0.0
+holding_time_mean,0.0,0.0
+holding_time_median,0.0,0.0
+pass_through_ratio,0.0,0.0
