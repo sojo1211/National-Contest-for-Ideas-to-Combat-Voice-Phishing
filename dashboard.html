@@ -1358,7 +1358,7 @@
                     </button>
                     <div class="faq-answer">
                         <p>Random Forest 모델이 예측한 Positive Class Probability(고위험 세탁 Proxy 유사도 확률, 0.0~1.0)에 100을 곱해 <strong>0~100점</strong>으로 산출합니다.</p>
-                        <blockquote><strong>Risk Score = Predict_Proba(Positive) × 100</strong><br>Score 70점 이상 지갑은 `[추가 분석 우선 대상]`으로 자동 지정됩니다.</blockquote>
+                        <blockquote><strong>Risk Score = Predict_Proba(Positive) × 100</strong><br>※ 70점은 실제 범죄 발생 확률 70%가 아니라, Positive Proxy 지갑 패턴에 대한 모델의 예측 확률을 0~100으로 환산한 내부 정량 위험도 지표입니다.<br>Score 70점 이상 지갑은 `[추가 분석 우선 대상]`으로 자동 지정됩니다.</blockquote>
                     </div>
                 </div>
 
